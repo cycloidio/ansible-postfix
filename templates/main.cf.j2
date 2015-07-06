@@ -1,5 +1,4 @@
-mydestination = localhost.localdomain, localhost, {{ ansible_hostname }}, {{ postfix_basehostname }}
-mynetworks_style = host
+mydestination = $myhostname, localhost.localdomain, localhost, {{ ansible_hostname }}, {{ postfix_basehostname }}
 
 # appending .domain is the MUA's job.
 append_dot_mydomain = yes
