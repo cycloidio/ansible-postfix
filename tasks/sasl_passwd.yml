@@ -1,0 +1,12 @@
+
+- name: sasl_passwd file
+  template: src=sasl_passwd.j2 
+            dest=/etc/postfix/sasl_passwd
+            mode=600
+  register: postfix_sasl_passwd_result
+  notify: restart postfix
+
+- name: ensure sasl_password is compiled
+  shell: postmap hash:/etc/postfix/sasl_passwd
+  notify: restart postfix
+  when: postfix_sasl_passwd_result | changed

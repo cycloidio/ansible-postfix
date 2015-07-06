@@ -1,0 +1,11 @@
+- name: >
+    Debian | set_fact
+      postfix_supported_os: True
+  set_fact:
+    postfix_supported_os: True
+
+- name: install libsasl2-modules
+  apt: pkg=libsasl2-modules state=installed
+
+- name: install postfix
+  apt: pkg=postfix state=installed

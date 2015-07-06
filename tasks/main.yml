@@ -1,0 +1,41 @@
+---
+# tasks file for ansible-postfix
+- name: Include RedHat specific tasks
+  include: RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Include Debian specific tasks
+  include: Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Check for unsupported target operating system
+  fail:
+    msg: "The operating system of the target machine ({{ inventory_hostname }}) is not currently supported."
+  when: postfix_supported_os is not defined
+
+- name: configure postfix
+  template: src=main.cf.j2 
+            dest=/etc/postfix/main.cf
+            owner=root
+            group=root
+            mode=0644
+  notify: restart postfix
+
+- name: ensure postfix is running
+  service: name=postfix 
+           state=started
+           enabled=yes
+
+- name: Mailname file
+  template: src=mailname.j2
+            dest=/etc/mailname
+  notify: restart postfix
+
+- name: aliases file
+  template: src=aliases.j2
+            dest=/etc/aliases
+  notify:
+  - newaliases
+  - restart postfix
+
+- include: sasl_passwd.yml
