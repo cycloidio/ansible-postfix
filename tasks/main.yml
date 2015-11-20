@@ -35,7 +35,8 @@
   template: src=aliases.j2
             dest=/etc/aliases
   notify:
-  - newaliases
   - restart postfix
+- name: Compile the new aliases
+  command: /usr/bin/newaliases
 
 - include: sasl_passwd.yml
