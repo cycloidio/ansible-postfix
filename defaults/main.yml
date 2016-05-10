@@ -5,4 +5,5 @@ postfix_tls_support: "yes"
 postfix_relayhost: "[email-smtp.eu-west-1.amazonaws.com]:587"
 postfix_relayhost_port:  
 postfix_basehostname: "cycloid.io"
-postfix_aliases: "root: admin@cycloid.io"
+postfix_aliases:
+  - "root: admin@cycloid.io"

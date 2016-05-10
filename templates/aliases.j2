@@ -1,1 +1,3 @@
-{{ postfix_aliases }}
+{% for alias in postfix_aliases %}
+{{ alias }}
+{% endfor %}
