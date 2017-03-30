@@ -2,7 +2,7 @@
 # tasks file for ansible-postfix
 - name: Include RedHat specific tasks
   include: RedHat.yml
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux' or ansible_distribution == 'RedHat'
 
 - name: Include Debian specific tasks
   include: Debian.yml
