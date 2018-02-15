@@ -8,3 +8,5 @@ postfix_basehostname: "cycloid.io"
 postfix_aliases:
   - "root: admin@cycloid.io"
   - "admin: admin@cycloid.io"
+
+postfix_extra_main_cf: ""
