@@ -13,7 +13,7 @@ smtpd_use_tls = yes
 smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 
-{% endif %} 
+{% endif %}
 
 {% if postfix_basehostname %}
 myhostname= {{ ansible_hostname + '.' + postfix_basehostname }}
@@ -31,6 +31,12 @@ recipient_delimiter = +
 inet_interfaces = all
 message_size_limit = 41943040
 
+{% if ansible_distribution == 'Debian' and ansible_distribution_version < '10' %}
+# Keep the compatibility with old install wich doesn't have smtpd_relay_restrictions param
+# smtpd_relay_restrictions = permit_mynetworks, permit_sasl_authenticated, reject
+{% else %}
+smtpd_relay_restrictions = permit_mynetworks, permit_sasl_authenticated, reject
+{% endif %}
 
 # Arbitrary parameter
 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
